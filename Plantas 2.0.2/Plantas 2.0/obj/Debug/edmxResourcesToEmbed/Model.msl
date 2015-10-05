@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="plantadbModelStoreContainer" CdmEntityContainer="plantadbEntities">
+    <EntitySetMapping Name="ficha">
+      <EntityTypeMapping TypeName="plantadbModel.ficha">
+        <MappingFragment StoreEntitySet="ficha">
+          <ScalarProperty Name="img_url" ColumnName="img_url" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="idficha" ColumnName="idficha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categoria">
+      <EntityTypeMapping TypeName="plantadbModel.categoria">
+        <MappingFragment StoreEntitySet="categoria">
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="activa" ColumnName="activa" />
+          <ScalarProperty Name="desc" ColumnName="desc" />
+          <ScalarProperty Name="idcategoria" ColumnName="idcategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ficha_categoria" TypeName="plantadbModel.ficha_categoria" StoreEntitySet="ficha_categoria">
+      <EndProperty Name="ficha">
+        <ScalarProperty Name="idficha" ColumnName="idficha" />
+      </EndProperty>
+      <EndProperty Name="categoria">
+        <ScalarProperty Name="idcategoria" ColumnName="idcategoria" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

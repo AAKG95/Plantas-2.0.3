@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="plantadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="plantadbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ficha" EntityType="plantadbModel.ficha" />
+    <EntitySet Name="categoria" EntityType="plantadbModel.categoria" />
+    <AssociationSet Name="ficha_categoria" Association="plantadbModel.ficha_categoria">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="ficha" EntitySet="ficha" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ficha">
+    <Key>
+      <PropertyRef Name="idficha" />
+    </Key>
+    <Property Name="idficha" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_creacion" Type="DateTime" Nullable="false" />
+    <Property Name="link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" Nullable="false" />
+    <Property Name="img_url" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="categoria" Relationship="plantadbModel.ficha_categoria" FromRole="ficha" ToRole="categoria" />
+  </EntityType>
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="idcategoria" />
+    </Key>
+    <Property Name="idcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="activa" Type="Boolean" Nullable="false" />
+    <Property Name="color" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ficha" Relationship="plantadbModel.ficha_categoria" FromRole="categoria" ToRole="ficha" />
+  </EntityType>
+  <Association Name="ficha_categoria">
+    <End Type="plantadbModel.categoria" Role="categoria" Multiplicity="*" />
+    <End Type="plantadbModel.ficha" Role="ficha" Multiplicity="*" />
+  </Association>
+</Schema>

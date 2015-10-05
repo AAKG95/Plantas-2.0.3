@@ -1,0 +1,45 @@
+﻿@model List<Plantas_2._0.categoria>
+
+@{
+    ViewBag.Title = "Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.js"></script>
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/JavaScript.js"></script>
+
+<h2>Categorias</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table" id="table_id">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Activo</th>
+            <th>Color</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Html.DisplayFor(item => item[i].idcategoria)</td>
+                <td>@Html.DisplayFor(item => item[i].desc)</td>
+                <td>@Html.DisplayFor(item => item[i].activa)</td>
+                <td style="background-color:@Model.ElementAt(i).color"></td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(i).idcategoria }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(i).idcategoria })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script> $(document).ready(function () { $('#table_id').DataTable();}); </script>

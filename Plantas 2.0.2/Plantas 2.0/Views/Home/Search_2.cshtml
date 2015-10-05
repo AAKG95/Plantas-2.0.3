@@ -1,0 +1,52 @@
+﻿@model Plantas_2._0.Models.SearchModel
+
+@{
+    ViewBag.Title = "Search_2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header>
+    <div class="form-group">
+        <h2>Buscar Categorias</h2>
+        <h1 style="color:black;float:right">Ejemplo de Ficha</h1>
+      
+        Escriba las Categorias o Fichas que desee buscar separadas por una coma " ,".
+    </div>
+</header>
+
+<body>
+     
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Categorias_String, new { htmlAttributes = new { @class = "form-control", placeholder = "Busqueda de Categorias o Fichas" } })
+                    @Html.ValidationMessageFor(model => model.Categorias_String, "", new { @class = "text-danger" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Buscar</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+           
+            <br />
+            <br />
+            
+            <img src="~/Resources/Images/Ficha Ejemplo_home.jpg" style="float:right" />
+            @Html.ActionLink("Back to Home", "Index")
+        </div>
+
+    </div>
+}
+</body>
+
+
+

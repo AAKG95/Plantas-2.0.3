@@ -1,0 +1,60 @@
+﻿@model List<Plantas_2._0.categoria>
+
+@{
+    ViewBag.Title = "Busqueda 1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.js"></script>
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+<h2>Buscar Categorias</h2>
+<p>
+    Al lado derecho de la pagina,Se encuentra una lista de las actuales categorias que permite</br> 
+    a un usuario sin conocimiento previo la posibilidad de buscar la planta que requiere.
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table" id="table_id">
+        <thead>
+            <tr>
+                <th><label>Categoria</label></th>
+                <th><label>Descripcion</label></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => x[i].idcategoria)
+                        @Html.CheckBoxFor(x => x[i].activa)
+                    </td>
+                    <td>@Html.DisplayFor(x => x[i].desc)</td>
+                    <td style="background-color:@Model.ElementAt(i).color"></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <input type="submit" value="Buscar" name="Submitbutton" class="btn btn-default" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable({
+            "order": [[1, 'asc']],
+            paging: false
+        });
+    });
+</script>

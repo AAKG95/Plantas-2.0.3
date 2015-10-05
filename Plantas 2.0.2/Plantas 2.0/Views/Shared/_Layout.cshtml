@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <div>
+        <img src="~/Resources/Images/headfdv.jpg" style="width:1349px; height:280px">
+    </div>
+
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <link href="~/Plugins/DataTables-1.10.9/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Plugins/DataTables-1.10.9/media/css/dataTables.foundation.min.css" rel="stylesheet" />
+    <link href="~/Plugins/DataTables-1.10.9/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+
+   
+</head>
+
+<body>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Fichas", "Fichas", "Fichas", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Categorias", "Categorias", "Categorias", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Buscador de Plantas", "Search_2", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Busqueda Avanzada", "Search_1", "Home", new { area = "" }, new { @class = "navbar-brand"})
+                @Html.ActionLink("Contacto", "Contacto", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="container body-content">
+        
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Buscador De Plantas</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/JavaScript.js"></script>
+    <script src="~/Plugins/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Plugins/DataTables-1.10.9/media/js/dataTables.bootstrap.js"></script>
+
+</body>
+</html>

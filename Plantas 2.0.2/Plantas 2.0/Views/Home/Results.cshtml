@@ -1,0 +1,49 @@
+﻿@model List<Plantas_2._0.ficha>
+
+@{
+    ViewBag.Title = "Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.js"></script>
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+
+<h2>Resultados</h2>
+
+<table class="table" id="table_id">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Link</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Html.DisplayFor(x => x[i].idficha)</td>
+                <td>@Html.DisplayFor(x => x[i].nombre)</td>
+                <td><a href="https://@Model.ElementAt(i).link">@Html.DisplayFor(x => x[i].nombre) Ficha</a></td>
+                @{
+                    if (Model.ElementAt(i).img_url != "")
+                    {
+                        <td><img src="@Html.DisplayFor(x => x[i].img_url)" height=100 width=100></td>
+                    }
+                    else
+                    {
+                        <td>No Disponible</td> 
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<p>
+    @Html.ActionLink("Return Home", "Index")
+</p>
+
+<script> $(document).ready(function () { $('#table_id').DataTable();}); </script>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="plantadbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="idcategoria" />
+          </Key>
+          <Property Name="idcategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="desc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="activa" Type="bit" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ficha">
+          <Key>
+            <PropertyRef Name="idficha" />
+          </Key>
+          <Property Name="idficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="link" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="img_url" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ficha_categoria">
+          <Key>
+            <PropertyRef Name="idficha" />
+            <PropertyRef Name="idcategoria" />
+          </Key>
+          <Property Name="idficha" Type="int" Nullable="false" />
+          <Property Name="idcategoria" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fkcategoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="ficha_categoria" Type="Self.ficha_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="idcategoria" />
+            </Principal>
+            <Dependent Role="ficha_categoria">
+              <PropertyRef Name="idcategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkficha">
+          <End Role="ficha" Type="Self.ficha" Multiplicity="1" />
+          <End Role="ficha_categoria" Type="Self.ficha_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ficha">
+              <PropertyRef Name="idficha" />
+            </Principal>
+            <Dependent Role="ficha_categoria">
+              <PropertyRef Name="idficha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="plantadbModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="plantadb" store:Type="Tables" />
+          <EntitySet Name="ficha" EntityType="Self.ficha" Schema="plantadb" store:Type="Tables" />
+          <EntitySet Name="ficha_categoria" EntityType="Self.ficha_categoria" Schema="plantadb" store:Type="Tables" />
+          <AssociationSet Name="fkcategoria" Association="Self.fkcategoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="ficha_categoria" EntitySet="ficha_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="fkficha" Association="Self.fkficha">
+            <End Role="ficha" EntitySet="ficha" />
+            <End Role="ficha_categoria" EntitySet="ficha_categoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="plantadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="plantadbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ficha" EntityType="plantadbModel.ficha" />
+          <EntitySet Name="categoria" EntityType="plantadbModel.categoria" />
+          <AssociationSet Name="ficha_categoria" Association="plantadbModel.ficha_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="ficha" EntitySet="ficha" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ficha">
+          <Key>
+            <PropertyRef Name="idficha" />
+          </Key>
+          <Property Name="idficha" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" />
+          <Property Name="link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="img_url" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="categoria" Relationship="plantadbModel.ficha_categoria" FromRole="ficha" ToRole="categoria" />
+        </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="idcategoria" />
+          </Key>
+          <Property Name="idcategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="desc" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <Property Name="color" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ficha" Relationship="plantadbModel.ficha_categoria" FromRole="categoria" ToRole="ficha" />
+        </EntityType>
+        <Association Name="ficha_categoria">
+          <End Type="plantadbModel.categoria" Role="categoria" Multiplicity="*" />
+          <End Type="plantadbModel.ficha" Role="ficha" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="plantadbModelStoreContainer" CdmEntityContainer="plantadbEntities">
+          <EntitySetMapping Name="ficha">
+            <EntityTypeMapping TypeName="plantadbModel.ficha">
+              <MappingFragment StoreEntitySet="ficha">
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idficha" ColumnName="idficha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="plantadbModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="idcategoria" ColumnName="idcategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ficha_categoria" TypeName="plantadbModel.ficha_categoria" StoreEntitySet="ficha_categoria">
+            <EndProperty Name="ficha">
+              <ScalarProperty Name="idficha" ColumnName="idficha" />
+            </EndProperty>
+            <EndProperty Name="categoria">
+              <ScalarProperty Name="idcategoria" ColumnName="idcategoria" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

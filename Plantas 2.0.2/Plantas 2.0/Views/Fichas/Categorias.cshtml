@@ -1,0 +1,50 @@
+﻿@model List<Plantas_2._0.categoria>
+
+@{
+    ViewBag.Title = "Link";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.js"></script>
+<script src="~/Plugins/DataTables-1.10.9/media/js/jquery.dataTables.min.js"></script>
+
+
+<h2>Enlazar Categorias</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table" id="table_id">
+        <thead>
+            <tr>
+                <th><label>Categoria</label></th>
+                <th><label>Descripcion</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(x => x[i].idcategoria)
+                        @Html.CheckBoxFor(x => x[i].activa)
+                    </td>
+                    <td>@Html.DisplayFor(x => x[i].desc)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group">
+            <input type="submit" value="Link" name="Submitbutton" class="btn btn-default" />
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable({
+            paging: false
+        });
+    });
+</script>
